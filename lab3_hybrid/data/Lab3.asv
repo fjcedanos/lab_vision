@@ -1,0 +1,47 @@
+% Piramide LOW PASS
+clear all;close all;clc;
+%Se leen las dos imagenes 
+x=imread('fish.bmp');
+x2=imread('submarine.bmp');
+%Se creen los parametros del filtro guassiano
+HSIZE=[20 20];
+SIGMA=9;
+h=fspecial('gaussian',HSIZE,SIGMA);
+FL0=imfilter(x,h,'replicate');
+I0=impyramid(x,'reduce');
+FL1=imfilter(I0,h,'replicate');
+I1 = impyramid(I0, 'reduce');
+FL0=imfilter(x,h,'replicate');
+I2 = impyramid(I1, 'reduce');
+I3 = impyramid(I2, 'reduce');
+
+I0 = imresize(I0, size(x(:,:,1)));
+I1 = imresize(I1, size(x(:,:,1)));
+I2 = imresize(I2, size(x(:,:,1)));
+I3 = imresize(I3, size(x(:,:,1)));
+
+% Piramide high PASS
+
+J0 = impyramid(x2,'expand');
+J1 = impyramid(J0, 'expand');
+J2 = impyramid(J1, 'expand');
+J3 = impyramid(J2, 'expand');
+
+%high pass
+
+J0 = imresize(J0, size(x2(:,:,1)));
+J1 = imresize(J1, size(x2(:,:,1)));
+J2 = imresize(J2, size(x2(:,:,1)));
+J3 = imresize(J3, size(x2(:,:,1)));
+K0=I0+(x2-J0);
+K1=I1+(J0-J1);
+K2=I2+(J1-J2);
+K3=I3+(J2-J3);
+
+
+figure;
+subplot(2,3,1), subimage(K0);
+subplot(2,3,2), subimage(K1);
+subplot(2,3,3), subimage(K2);
+subplot(2,3,4), subimage(K3);
+
