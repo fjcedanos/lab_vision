@@ -3,10 +3,14 @@ clear all;close all;clc;
 %Se leen las dos imagenes 
 x=imread('fish.bmp');
 x2=imread('submarine.bmp');
-%Se creen los parametros del filtro guassiano
+
+%Se crean los parametros del filtro guassiano
 HSIZE=[20 20];
 SIGMA=9;
+% Se crea el filtro
 h=fspecial('gaussian',HSIZE,SIGMA);
+
+
 FL0=imfilter(x,h,'replicate');
 I0=impyramid(x,'reduce');
 FL1=imfilter(I0,h,'replicate');
