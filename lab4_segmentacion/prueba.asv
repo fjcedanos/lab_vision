@@ -1,0 +1,5 @@
+clc;clear all;close all;
+%Se corre la función
+x=imread('8068.jpg');
+
+y=segment_by_clustering(x,'rgb','kmeans',37;
