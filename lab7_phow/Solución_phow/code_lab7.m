@@ -1,5 +1,5 @@
 clear all; close all;clc
-Direct='x';
+Direct='Resultados/x';
 D=dir(fullfile(Direct,'*.mat'));
 cnt=1;
 
@@ -12,7 +12,7 @@ for j=1:length(D)
             suma1=suma1+diag(confus(i,i));
         end
         
-    mean(j)=100*((suma1/length(confus))/15);
+    mean(j)=100*((suma1/length(confus))/20);
     
 end
 cat=[100 125 150 200];
